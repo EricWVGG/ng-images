@@ -57,7 +57,7 @@ function ng_image($src, $meta = []) {
 }
 
 
-add_shortcode('ng-image', function($atts) {
+add_shortcode('ng-picture', function($atts) {
     ng_image($atts['src'], $atts);
 });
 
@@ -150,6 +150,9 @@ add_action('save_post', 'ngimages_save_post');
 
 
 function ng_picture($img, $meta = []) { // Wordpress media associative array
+    if( !is_array($img) ) {
+        return ng_image($img, $meta);
+    }
     if( !in_array($img['mime_type'], ['image/jpeg', 'image/png']) ) {
         // return normal image
         return wp_get_attachment_image($img['ID']);
